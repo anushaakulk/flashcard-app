@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simple Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjs@10.0.2/lib/browser/math.min.js"></script>
+    <script type="text/javascript">
+
+        function addLogItem(msg){
+            var li = document.createElement("li");
+            var msg_node = document.createTextNode(msg);    
+            li.appendChild(msg_node); 
+            document.getElementById("log").appendChild(li);  
+        }
+
+        function calculate(){
+            expression = document.getElementById("expression").value;
+            log = document.getElementById("log").innerHTML;
+            if(expression){                
+                try {
+                    answer = eval(expression)
+                    document.getElementById("expression").value = answer;
+                    addLogItem(expression+"="+answer)
+                } catch (e) {                   
+                    addLogItem(expression+" is invalid. Please fix it.")
+                }
+            }else{
+                addLogItem("Enter a valid expression")
+            }
+        }
+        
+        function calculate_math(){
+            expression = document.getElementById("expression").value;
+            log = document.getElementById("log").innerHTML;
+            if(expression){                
+                try {
+                    answer = math.evaluate(expression)
+                    document.getElementById("expression").value = answer;
+                    addLogItem(expression+"="+answer)
+                } catch (e) {                   
+                    addLogItem(expression+" is invalid. Please fix it.")
+                }
+            }else{
+                addLogItem("Enter a valid expression")
+            }
+        }
+        function initialize(){
+            button = document.getElementById("calculate")
+            button.addEventListener("click", calculate_math);
+        }
+    </script>
+</head>
+<body onload="initialize()">
+<div class="container">
+  <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+              <div>
+                <input type="input" class="form-control" id="expression" placeholder="3*5">
+              </div>
+              <div>
+                <button id="calculate" class="btn btn-primary mb-3">Calculate</button>
+              </div>
+              <div>
+                <h3>Log</h3>
+                <ul id="log">
+
+                </ul>
+              </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>    
+</div>
+</body>
+</html>
